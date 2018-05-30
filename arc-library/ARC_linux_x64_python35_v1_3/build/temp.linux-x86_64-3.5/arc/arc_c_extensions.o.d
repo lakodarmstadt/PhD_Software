@@ -1,0 +1,1 @@
+commandline: -I/home/lars/.local/lib/python3.5/site-packages/numpy/core/include -I/usr/include/python3.5m -c-Wall -O3-I/home/lars/.local/lib/python3.5/site-packages/numpy/core/include -I/usr/include/python3.5m

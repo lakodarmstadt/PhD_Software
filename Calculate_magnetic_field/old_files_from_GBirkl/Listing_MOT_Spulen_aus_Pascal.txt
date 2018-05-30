@@ -1,0 +1,168 @@
+program champ_magnetique_Ioffe;
+
+(* This program calculates 1D sections of the B-field created *)
+(* through Helmholtz or Anti-Helmhotz coils                   *)
+(* NEW Version 2007 for Free Pascal                           *)
+
+
+USES wincrt;
+
+CONST
+  nbseg = 50;       (* number of segments per loop *)
+  nbob  = 2;        (* number of coils *)
+  Mu0   = 4*Pi/10;  (* B en Gauss et distance en cm *)
+
+TYPE
+  decoupage = ARRAY[1..nbseg] of real;
+  coilarray = ARRAY[1..nbob]  of real;
+  thebigone = ARRAY[1..nbob]  of decoupage;
+
+VAR
+  i,j  : integer;
+  xbob,ybob,zbob : coilarray;  (* position du centre de la bobine *)
+  nxb,nyb,nzb : coilarray;  (* coordonn‚es vectorielles de la normale … la bobine *)
+  rbob : coilarray; (* rayon de la bobine *)
+  ibob : coilarray; (* courant bobine: positif signifie normale meme sens que l'axe correspondant *)
+
+  xpt,ypt,zpt   : real; (* position du point ou on calcule le champ *)
+  bx,by,bz,modb : real; (* champ B *)
+  dist,xcseg,ycseg,zcseg,nxseg,nyseg,nzseg : thebigone;
+  fic: text;
+
+PROCEDURE Ouvrefichier;
+Var
+  nfic:string;
+BEGIN
+           Write('Entrez le nom du fichier (sans etiquette): ');
+           Readln(nfic);
+           nfic:=nfic + '.dat';
+           nfic:='c:\_Gerhard\_Work_in_Progress\Magnetfeld\MOT\daten\'+ nfic;
+           Assign(fic,nfic);
+           Rewrite(fic);
+End;
+
+PROCEDURE bobine;
+Begin
+
+  ibob[1]:= 1;
+  ibob[2]:= -1;
+
+  xbob[1]:=2.25;
+  ybob[1]:=0;
+  zbob[1]:=0;
+  nxb[1]:=1;
+  nyb[1]:=0;
+  nzb[1]:=0;
+  rbob[1]:=4.5;
+
+  xbob[2]:=-2.25;
+  ybob[2]:=0;
+  zbob[2]:=0;
+  nxb[2]:=1;
+  nyb[2]:=0;
+  nzb[2]:=0;
+  rbob[2]:=4.5;
+
+  xpt:=0;
+  ypt:=0;
+  zpt:=0;
+end;
+
+PROCEDURE decoupe(VAR xcseg,ycseg,zcseg,nxseg,nyseg,nzseg:decoupage;
+          xb,yb,zb,nxb,nyb,nzb,rb:real);      (* d‚coupage dans le sens de la normale *)
+Var
+  i:integer;
+Begin
+  For i:=1 to nbseg do
+  Begin
+    If (nxb <> 0) then
+    Begin
+      xcseg[i] := xb;
+      ycseg[i] := yb + 0.5*(rb*cos(2*Pi*(i-1)/nbseg) + rb*cos(2*Pi*i/nbseg));
+      zcseg[i] := zb + 0.5*(rb*sin(2*Pi*(i-1)/nbseg) + rb*sin(2*Pi*i/nbseg));
+      nxseg[i] := 0;
+      nyseg[i] := rb*cos(2*Pi*i/nbseg) - rb*cos(2*Pi*(i-1)/nbseg
+      );
+      nzseg[i] := rb*sin(2*Pi*i/nbseg) - rb*sin(2*Pi*(i-1)/nbseg);
+    End
+    Else if (nyb <> 0) then
+    Begin
+      xcseg[i] := xb + 0.5*(rb*sin(2*Pi*(i-1)/nbseg) + rb*sin(2*Pi*i/nbseg));
+      ycseg[i] := yb;
+      zcseg[i] := zb + 0.5*(rb*cos(2*Pi*(i-1)/nbseg) + rb*cos(2*Pi*i/nbseg));
+      nxseg[i] := rb*sin(2*Pi*i/nbseg) - rb*sin(2*Pi*(i-1)/nbseg);
+      nyseg[i] := 0;
+      nzseg[i] := rb*cos(2*Pi*i/nbseg) - rb*cos(2*Pi*(i-1)/nbseg);
+    End
+    Else
+    Begin
+      xcseg[i] := xb + 0.5*(rb*sin(2*Pi*(i-1)/nbseg) + rb*sin(2*Pi*i/nbseg));
+      ycseg[i] := yb + 0.5*(rb*cos(2*Pi*(i-1)/nbseg) + rb*cos(2*Pi*i/nbseg));;
+      zcseg[i] := zb ;
+      nxseg[i] := rb*sin(2*Pi*i/nbseg) - rb*sin(2*Pi*(i-1)/nbseg);
+      nyseg[i] := rb*cos(2*Pi*i/nbseg) - rb*cos(2*Pi*(i-1)/nbseg);;
+      nzseg[i] := 0;
+    End;
+  End;
+End;
+
+Procedure distance(VAR dist:decoupage;xcseg,ycseg,zcseg:decoupage);
+Var
+  i:integer;
+Begin
+  For i:=1 to nbseg do
+      dist[i] := Sqrt((xpt-xcseg[i])*(xpt-xcseg[i]) +
+                      (ypt-ycseg[i])*(ypt-ycseg[i]) +
+                      (zpt-zcseg[i])*(zpt-zcseg[i]));
+End;
+
+Function Bsegx(ib,d,xs,ys,zs,segx,segy,segz:real):real;
+Begin
+  Bsegx :=  Mu0/(4*Pi)*ib*(segy*(zpt-zs)-segz*(ypt-ys))/(d*d*d);
+End;
+
+Function Bsegy(ib,d,xs,ys,zs,segx,segy,segz:real):real;
+Begin
+  Bsegy := Mu0/(4*Pi)*ib*(segz*(xpt-xs)-segx*(zpt-zs))/(d*d*d);
+End;
+
+Function Bsegz(ib,d,xs,ys,zs,segx,segy,segz:real):real;
+Begin
+  Bsegz := Mu0/(4*Pi)*ib*(segx*(ypt-ys)-segy*(xpt-xs))/(d*d*d);
+End;
+
+
+(***********************  MAIN PROGRAM *********************)
+
+BEGIN
+  ouvrefichier;
+  bobine;
+  For j:=1 to nbob do
+  Begin
+  decoupe(xcseg[j],ycseg[j],zcseg[j],nxseg[j],nyseg[j],nzseg[j],
+          xbob[j],ybob[j],zbob[j],nxb[j],nyb[j],nzb[j],rbob[j]);
+  End;
+
+  xpt := -2;
+  while (xpt < 2) do
+  begin
+    bx := 0;
+    by := 0;
+    bz := 0;
+
+    For j:=1 to nbob do
+        Begin
+        distance(dist[j],xcseg[j],ycseg[j],zcseg[j]);
+        For i:=1 to nbseg do
+            Begin
+            bx := bx + Bsegx(ibob[j],dist[j,i],xcseg[j,i],ycseg[j,i],zcseg[j,i],nxseg[j,i],nyseg[j,i],nzseg[j,i]);
+            by := by + Bsegy(ibob[j],dist[j,i],xcseg[j,i],ycseg[j,i],zcseg[j,i],nxseg[j,i],nyseg[j,i],nzseg[j,i]);
+            bz := bz + Bsegz(ibob[j],dist[j,i],xcseg[j,i],ycseg[j,i],zcseg[j,i],nxseg[j,i],nyseg[j,i],nzseg[j,i]);
+            End;
+        End;
+        modb := Sqrt(bx*bx+by*by+bz*bz);
+    Writeln(fic,xpt,' ',bx,' ',by,' ',bz,' ',modb);
+    xpt:=xpt+0.1;
+  end;
+  Close(fic);
+END.
