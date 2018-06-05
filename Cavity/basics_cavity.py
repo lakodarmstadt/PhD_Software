@@ -45,11 +45,14 @@ class cavity:
 R_780 = 0.999908
 R_960 = 0.99985
 lambda_780 = 780 * nano
+lambda_960 = 960 * nano
 n_vac = 1
 
 SLS_Cavity_780 = cavity(0.1, R_780, R_780, n_vac, lambda_780)
-print(SLS_Cavity_780.FSR())
+SLS_Cavity_960 = cavity(0.1, R_960, R_960, n_vac, lambda_960)
+print('The FSR for 780nm is' + str(SLS_Cavity_780.FSR())
 print(SLS_Cavity_780.Finesse())
 print(SLS_Cavity_780.linewidth_FWHM())
 print(SLS_Cavity_780.max_Transmission())
 print(SLS_Cavity_780.Internal_Intensity(10 * micro))
+print(SLS_Cavity_780.R1)
