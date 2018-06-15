@@ -118,10 +118,10 @@ def fit_gaussian_2D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, slice
     plt.text(0.95, 0.05, """
     waist_x : %.1fum
     waist_y : %.1fum""" %(waist_j*pixelsize_x, waist_i*pixelsize_y),
-            fontsize=12, horizontalalignment='right',
+            fontsize=12, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax.transAxes)
     plt.text(0.7, 0.9, filename,
-            fontsize=12, horizontalalignment='right',
+            fontsize=12, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax.transAxes)
     ax.set_xlabel('x-axis camera')
     ax.set_ylabel('y-axis camera')
@@ -155,10 +155,10 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
     ax1.text(0.95, 0.05, """
     waist_x : %.1fum
     waist_y : %.1fum""" %(waist_j*pixelsize_x, waist_i*pixelsize_y),
-            fontsize=16, horizontalalignment='right',
+            fontsize=16, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax1.transAxes)
     ax1.text(0.5, 0.9, filename,
-            fontsize=16, horizontalalignment='right',
+            fontsize=16, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax1.transAxes)
     if lin==True:
         data_i,data_j=data[:,int(np.round(y,0))],data[int(np.round(x,0)),:]
@@ -217,7 +217,7 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
 #fit_gaussian_1D_to_image('2018_03_06/dist450mm.pgm')
 #fit_gaussian_1D_to_image('2018_03_06/dist690mm.pgm')
 #fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD//Messungen/Fibercollimator_F810APC-780/2018_03_14/backup_test.pgm')
-fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Lehre/FP/Messungen_LK/2018_04_05/Ladephase/Ladephase0009.bmp')
+#fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Lehre/FP/Messungen_LK/2018_04_05/Ladephase/Ladephase0009.bmp')
 
 #plt.show()
 #plt.savefig('fitresults_2018_03_07.pdf')
