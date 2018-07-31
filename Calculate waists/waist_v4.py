@@ -96,6 +96,10 @@ def fitgaussian_2D(data):
 
 def fit_gaussian_2D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, sliceing=None):
     data = np.array(misc.imread(filename))
+    print(data.shape)
+    if data.shape == (964,1288,3):
+        data=data[:,:,0]
+
     if sliceing is not None:
         data = data[sliceing[0][0]:sliceing[0][1], sliceing[1][0]:sliceing[1][1]]
 
@@ -216,8 +220,15 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
 #fit_gaussian_1D_to_image('2018_03_06/dist300mm.pgm')
 #fit_gaussian_1D_to_image('2018_03_06/dist450mm.pgm')
 #fit_gaussian_1D_to_image('2018_03_06/dist690mm.pgm')
-#fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD//Messungen/Fibercollimator_F810APC-780/2018_03_14/backup_test.pgm')
-#fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Lehre/FP/Messungen_LK/2018_04_05/Ladephase/Ladephase0009.bmp')
+
+fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD//Messungen/Fibercollimator_F810APC-780/2018_03_14/backup_test.pgm')
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Lehre/FP/Messungen_LK/2018_04_05/Ladephase/Ladephase0009.bmp')
+
+fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_mit_Beamsampler.bmp')
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_mit_Beamsampler_Cam_verschoben.bmp')
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_nur_Auskoppler.pgm')
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/93cm_nur_Auskoppler.pgm')
+
 
 #plt.show()
 #plt.savefig('fitresults_2018_03_07.pdf')
