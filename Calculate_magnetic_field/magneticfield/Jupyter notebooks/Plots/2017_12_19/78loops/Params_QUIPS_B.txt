@@ -1,0 +1,12 @@
+78 coils per loop: 12 Schleifen Kantenlänge -> 12,11,...
+#r_center=+/- [0,0,0.0293]
+#r_außen=47,3mm
+#Schenkellänge=15.2mm
+#Drahtdurchmesser=1mm
+#loop_param_list=[[r_c_1_x,r_c_1_y,r_c_1_z,r_in_1,I_1],...]
+r_center_0=np.array([0,0,0.0293])
+I=5.8
+r_in_0=0.0321+0.0005
+n=12
+
+Loop aus 32 Segmenten; N=32
