@@ -3,7 +3,7 @@ from scipy import misc
 from scipy import optimize
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-import os
+import os, csv
 
 def gaussian_1D(height, center, waist, offset):
     waist=float(waist) #waist is defined as 1/e^2 of the intensity
@@ -94,7 +94,7 @@ def fitgaussian_2D(data):
 
 
 
-def fit_gaussian_2D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, sliceing=None):
+def fit_gaussian_2D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, sliceing=None, return_value=True):
     data = np.array(misc.imread(filename))
     print(data.shape)
     if data.shape == (964,1288,3):
@@ -124,17 +124,24 @@ def fit_gaussian_2D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, slice
     waist_y : %.1fum""" %(waist_j*pixelsize_x, waist_i*pixelsize_y),
             fontsize=12, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax.transAxes)
-    plt.text(0.7, 0.9, filename,
+    plt.text(0.95, 0.15, """
+    center_x : %.1fum
+    center_y : %.1fum""" %(j*pixelsize_x, i*pixelsize_y),
+            fontsize=12, horizontalalignment='right', color= 'r',
+            verticalalignment='bottom', transform=ax.transAxes)
+    red_filename = filename.split('/')[-1]
+    plt.text(0.7, 0.9, red_filename,
             fontsize=12, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax.transAxes)
     ax.set_xlabel('x-axis camera')
     ax.set_ylabel('y-axis camera')
     #fig.tight_layout()
     plt.savefig(filename + '.pdf', bbox_inches='tight', format='pdf')
+    if return_value:
+        return red_filename, j*pixelsize_x, i*pixelsize_y
 
 def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=True):
-    # Data needs to be transposed to have the pictures x-axis as first index in the array: (x,y)
-    data = np.array(misc.imread(filename)).T
+    data = np.array(misc.imread(filename))
 
     gs = gridspec.GridSpec(3,2,height_ratios = [2,2,1])
 
@@ -148,8 +155,8 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
 
     ax1.contour(fit(*np.indices(data.shape)), cmap=plt.cm.copper)
     ax1.xaxis.set_tick_params(labeltop='off', labelbottom='on')
-    ax1.set_xlabel('y-axis camera')
-    ax1.set_ylabel('x-axis camera')
+    ax1.set_xlabel('x-axis camera')
+    ax1.set_ylabel('y-axis camera')
     #axtext = ax1.gca()
     (height, i, j, waist_i, waist_j,offset) = params
     print('2D params are:')
@@ -165,7 +172,7 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
             fontsize=16, horizontalalignment='right', color= 'r',
             verticalalignment='bottom', transform=ax1.transAxes)
     if lin==True:
-        data_i,data_j=data[:,int(np.round(y,0))],data[int(np.round(x,0)),:]
+        data_i,data_j=data[:,int(np.round(j,0))],data[int(np.round(i,0)),:]
         filename+='_1D_lin_'+'.pdf'
     else:
         data_i,data_j=data_1D_av(data,i,j)
@@ -221,14 +228,34 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
 #fit_gaussian_1D_to_image('2018_03_06/dist450mm.pgm')
 #fit_gaussian_1D_to_image('2018_03_06/dist690mm.pgm')
 
-fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD//Messungen/Fibercollimator_F810APC-780/2018_03_14/backup_test.pgm')
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD//Messungen/Fibercollimator_F810APC-780/2018_03_14/backup_test.pgm')
 # fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Lehre/FP/Messungen_LK/2018_04_05/Ladephase/Ladephase0009.bmp')
 
-fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_mit_Beamsampler.bmp')
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_mit_Beamsampler.bmp')
 # fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_mit_Beamsampler_Cam_verschoben.bmp')
 # fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/20cm_nur_Auskoppler.pgm')
 # fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/93cm_nur_Auskoppler.pgm')
 
+# fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/TobiasSchreiber/15030661-2018-07-27-162232.png')
+fit_gaussian_1D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/PhD_Software/Calculate waists/test/test.bmp')
+fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/PhD_Software/Calculate waists/test/test.bmp')
+
+# dir1="/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz_2"
+# dir2='/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz'
+
+# center_pos_list=[]
+# for file in os.listdir(dir1):
+#     if file.endswith(".pgm"):
+#         center_pos_list.append(list(fit_gaussian_2D_to_image(os.path.join(dir1, file))))
+# print(center_pos_list)
+
+# with open(dir1+'/center_pos_list.txt', 'wb') as myfile:
+#     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+#     wr.writerows(center_pos_list)
+
+# for file in os.listdir(dir1):
+#     if file.endswith(".pgm"):
+#         fit_gaussian_2D_to_image(os.path.join(dir1, file))
 
 #plt.show()
 #plt.savefig('fitresults_2018_03_07.pdf')

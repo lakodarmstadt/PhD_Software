@@ -32,4 +32,4 @@ df_D2=pd.DataFrame(fund_wavelength_list_D2, columns=['n','nS12','nP12','nP32','n
 print(df_D1.min(),df_D1.max())
 print(df_D2.min(),df_D2.max())
 
-# Note: Convert list into dataframe and learn about dataframes 
+# Note: Convert list into dataframe and learn about dataframes
