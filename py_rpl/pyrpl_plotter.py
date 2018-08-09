@@ -1,3 +1,5 @@
+# Important: Run this file in the pyrpl-environment you installed pyrpl.
+
 import pyrpl
 import pickle
 import os
