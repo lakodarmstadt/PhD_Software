@@ -17,6 +17,7 @@ class cavity:
         self.R1 = R1  # Reflectivity of first mirror
         self.R2 = R2  # Reflectivity second mirror
         self.n = n
+        self.wavelength = wavelength
 
     def FSR(self):
         return c / (2 * self.length * self.n)

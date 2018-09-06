@@ -32,7 +32,16 @@ def beam_displacement(t, n1, n2, alpha):
     n2: index of refraction material
     alpha: angle of incidence (in degree)
     '''
-    # Cenvert angle in degree to radians:
+    # Convert angle in degree to radians:
     alpha_rad = alpha / 360 * 2 * np.pi
     d = t * np.sin(alpha_rad) * (1 - (np.cos(alpha_rad)) / (np.sqrt((n2 / n1)**2 - np.sin(alpha_rad)**2)))
     return d
+
+def wavelength_to_frequency_converter(wavelength_list):
+    freq_list = [c / Lambda for Lambda in wavelength_list]
+    return freq_list
+
+
+def frequency_to_wavelength_converter(frequency_list):
+    wavelength_list = [c / nu for nu in frequency_list]
+    return wavelength_list

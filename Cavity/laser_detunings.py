@@ -9,16 +9,6 @@ atom = Rubidium85()
 # Functions section:
 
 
-def wavelength_to_frequency_converter(wavelength_list):
-    freq_list = [c / Lambda for Lambda in wavelength_list]
-    return freq_list
-
-
-def frequency_to_wavelength_converter(frequency_list):
-    wavelength_list = [c / nu for nu in frequency_list]
-    return wavelength_list
-
-
 def cavity_resonance_list(FSR, example_resonance_frequency, n):
     '''cavity_resonance_list(FSR, example_resonance_frequency, n)    function to calculate the n nearest resonances with respect to the example_resonance_frequency given the cavity FSR.'''
 
@@ -50,10 +40,14 @@ detuning_5P32 = (-113.2 * 1e6, - 83.8 * 1e6, - 20.4 * 1e6, 100.2 * 1e6)
 detuning_to_5P32F4 = 100 * 1e6
 
 FSR = 1521  # in MHz
-example_resonance_frequency = 312365318  # in Mhz
-frequency_57D52 = 312366106  # in MHz
+example_resonance_frequency = 312365346  # in MHz; Example resonance frequency calculated from measurements June 18th 2018
+frequency_57D52 = (atom.getTransitionFrequency(5, 1, 1.5, 57, 2, 2.5) - detuning_5P32[2] + 36 * 1e6) / 1e6  # in MHz
+frequency_56D52 = (atom.getTransitionFrequency(5, 1, 1.5, 56, 2, 2.5) - detuning_5P32[2] + 36 * 1e6) / 1e6  # in MHz
+frequency_58D52 = (atom.getTransitionFrequency(5, 1, 1.5, 58, 2, 2.5) - detuning_5P32[2] + 36 * 1e6) / 1e6  # in MHz
 
 resonance_list = cavity_resonance_list(FSR, example_resonance_frequency, 15)
 print (resonance_list)
 
-nearest_cavity_resonance(frequency_57D52, FSR, example_resonance_frequency, unit=" MHz ")
+nearest_cavity_resonance(frequency_57D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+nearest_cavity_resonance(frequency_56D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+nearest_cavity_resonance(frequency_58D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
