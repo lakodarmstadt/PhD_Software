@@ -210,7 +210,6 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
     plt.savefig(filename, format='pdf')
 
 
-
 #dir_path = os.path.dirname(os.path.realpath(__file__))
 #print(dir_path)
 #Create a list of all picture files:
@@ -237,8 +236,9 @@ def fit_gaussian_1D_to_image(filename, pixelsize_x=3.75, pixelsize_y=3.75, lin=T
 # fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/93cm_nur_Auskoppler.pgm')
 
 # fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/TobiasSchreiber/15030661-2018-07-27-162232.png')
-fit_gaussian_1D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/PhD_Software/Calculate waists/test/test.bmp')
-fit_gaussian_2D_to_image('/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/PhD_Software/Calculate waists/test/test.bmp')
+# fit_gaussian_1D_to_image('/home/lars/Schreibtisch/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz_2/ohne_BS.pgm')
+# fit_gaussian_1D_to_image('/home/lars/Schreibtisch/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz_2/ohne_BS_2.pgm')
+# fit_gaussian_1D_to_image('/home/lars/Schreibtisch/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz_2/mit_BS_Grad60.pgm')
 
 # dir1="/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz_2"
 # dir2='/home/lars/Dokumente/Lars_Kohfahl/Studium/PhD/Messungen/Fibercollimator_F810APC-780/Testing_Collimator_with_BSF10B/Beamsampler_Strahlversatz'
