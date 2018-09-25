@@ -1,0 +1,161 @@
+(py2) C:\Users\LK-Desktop>conda install h5py
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: C:\Users\LK-Desktop\Anaconda3\envs\py2
+
+  added / updated specs:
+    - h5py
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    mkl_fft-1.0.1              |   py27hc997a72_0         112 KB
+    h5py-2.8.0                 |   py27h5f1a774_2         804 KB
+    numpy-base-1.14.3          |   py27h917549b_1         3.7 MB
+    blas-1.0                   |              mkl           6 KB
+    linecache2-1.0.0           |           py27_0          24 KB
+    unittest2-1.1.0            |           py27_0         162 KB
+    numpy-1.14.3               |   py27h911edcf_1          41 KB
+    traceback2-1.4.0           |           py27_0          30 KB
+    ------------------------------------------------------------
+                                           Total:         4.8 MB
+
+The following NEW packages will be INSTALLED:
+
+    blas:       1.0-mkl
+    h5py:       2.8.0-py27h5f1a774_2
+    linecache2: 1.0.0-py27_0
+    mkl_fft:    1.0.1-py27hc997a72_0
+    numpy-base: 1.14.3-py27h917549b_1
+    traceback2: 1.4.0-py27_0
+    unittest2:  1.1.0-py27_0
+
+The following packages will be UPDATED:
+
+    numpy:      1.14.2-py27h0bb1d87_0 --> 1.14.3-py27h911edcf_1
+
+Proceed ([y]/n)? y
+
+
+Downloading and Extracting Packages
+mkl_fft-1.0.1        | 112 KB    | #################################### | 100%
+h5py-2.8.0           | 804 KB    | #################################### | 100%
+numpy-base-1.14.3    | 3.7 MB    | #################################### | 100%
+blas-1.0             | 6 KB      | #################################### | 100%
+linecache2-1.0.0     | 24 KB     | #################################### | 100%
+unittest2-1.1.0      | 162 KB    | #################################### | 100%
+numpy-1.14.3         | 41 KB     | #################################### | 100%
+traceback2-1.4.0     | 30 KB     | #################################### | 100%
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+
+(py2) C:\Users\LK-Desktop>python -m lyse
+Warning! ***HDF5 library version mismatched error***
+The HDF5 header files used to compile this application do not match
+the version used by the HDF5 library to which this application is linked.
+Data corruption or segmentation faults may occur if the application continues.
+This can happen when an application was compiled by one version of HDF5 but
+linked with a different version of static or shared HDF5 library.
+You should recompile the application or check your shared library related
+settings such as 'LD_LIBRARY_PATH'.
+You can, at your own risk, disable this warning by setting the environment
+variable 'HDF5_DISABLE_VERSION_CHECK' to a value of '1'.
+Setting it to 2 or higher will suppress the warning messages totally.
+Headers are 1.10.2, library is 1.10.1
+            SUMMARY OF THE HDF5 CONFIGURATION
+            =================================
+
+General Information:
+-------------------
+                   HDF5 Version: 1.10.1
+                  Configured on: 2017-05-10
+                  Configured by: Visual Studio 9 2008 Win64
+                    Host system: Windows-10.0.15063
+              Uname information: Windows
+                       Byte sex: little-endian
+             Installation point: C:/Program Files/HDF5
+
+Compiling Options:
+------------------
+                     Build Mode:
+              Debugging Symbols:
+                        Asserts:
+                      Profiling:
+             Optimization Level:
+
+Linking Options:
+----------------
+                      Libraries:
+  Statically Linked Executables: OFF
+                        LDFLAGS: /MANIFEST:NO
+                     H5_LDFLAGS:
+                     AM_LDFLAGS:
+                Extra libraries: X:inclib-vc9-x64/zlib.lib;X:/inclib-vc9-x64/lib
+sz.lib;X:/inclib-vc9-x64/libaec.lib
+                       Archiver:
+                         Ranlib:
+
+Languages:
+----------
+                              C: yes
+                     C Compiler: C:/Program Files (x86)/Microsoft Visual Studio
+9.0/VC/bin/x86_amd64/cl.exe 15.0.30729.1
+                       CPPFLAGS:
+                    H5_CPPFLAGS:
+                    AM_CPPFLAGS:
+                         CFLAGS: /DWIN32 /D_WINDOWS /W3
+                      H5_CFLAGS:
+                      AM_CFLAGS:
+               Shared C Library: YES
+               Static C Library: YES
+
+                        Fortran: OFF
+               Fortran Compiler:
+                  Fortran Flags:
+               H5 Fortran Flags:
+               AM Fortran Flags:
+         Shared Fortran Library: YES
+         Static Fortran Library: YES
+
+                            C++: ON
+                   C++ Compiler: C:/Program Files (x86)/Microsoft Visual Studio
+9.0/VC/bin/x86_amd64/cl.exe 15.0.30729.1
+                      C++ Flags: /DWIN32 /D_WINDOWS /W3 /GR /EHsc
+                   H5 C++ Flags:
+                   AM C++ Flags:
+             Shared C++ Library: YES
+             Static C++ Library: YES
+
+                            JAVA: OFF
+                   JAVA Compiler:
+
+Features:
+---------
+                  Parallel HDF5: OFF
+             High-level library: ON
+                   Threadsafety: OFF
+            Default API mapping: v110
+ With deprecated public symbols: ON
+         I/O filters (external):  DEFLATE DECODE ENCODE
+                            MPE:
+                     Direct VFD:
+                        dmalloc:
+ Packages w/ extra debug output:
+                    API Tracing: OFF
+           Using memory checker: OFF
+Memory allocation sanity checks: OFF
+            Metadata trace file:
+         Function Stack Tracing: OFF
+      Strict File Format Checks: OFF
+   Optimization Instrumentation:
+Bye...
+
+This application has requested the Runtime to terminate it in an unusual way.
+Please contact the application's support team for more information.
+
+(py2) C:\Users\LK-Desktop>

@@ -1,0 +1,40 @@
+#### I did: ### conda update:
+
+## Package Plan ##
+
+  environment location: /home/lars/anaconda3
+
+  added / updated specs:
+    - h5py
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    hdf5-1.10.2                |       hba1933b_1         5.2 MB
+    certifi-2018.8.24          |           py36_1         140 KB
+    conda-4.5.11               |           py36_0         1.0 MB
+    h5py-2.8.0                 |   py36h989c5e5_3         1.1 MB
+    snappy-1.1.7               |       hbae5bb6_3          38 KB
+    openssl-1.0.2p             |       h14c3975_0         3.5 MB
+    blosc-1.14.4               |       hdbcaa40_0         601 KB
+    pytables-3.4.4             |   py36ha205bf6_0         1.5 MB
+    libgcc-ng-8.2.0            |       hdf63c60_1         7.6 MB
+    ------------------------------------------------------------
+                                           Total:        20.6 MB
+
+The following NEW packages will be INSTALLED:
+
+    blosc:     1.14.4-hdbcaa40_0
+    snappy:    1.1.7-hbae5bb6_3
+
+The following packages will be UPDATED:
+
+    certifi:   2018.4.16-py36_0     --> 2018.8.24-py36_1
+    conda:     4.5.8-py36_0         --> 4.5.11-py36_0
+    h5py:      2.7.1-py36h3585f63_0 --> 2.8.0-py36h989c5e5_3
+    hdf5:      1.10.1-h9caa474_1    --> 1.10.2-hba1933b_1
+    libgcc-ng: 7.2.0-h7cc24e2_2     --> 8.2.0-hdf63c60_1
+    openssl:   1.0.2o-h20670df_0    --> 1.0.2p-h14c3975_0
+    pytables:  3.4.2-py36h3b5282a_2 --> 3.4.4-py36ha205bf6_0

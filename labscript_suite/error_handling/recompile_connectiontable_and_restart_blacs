@@ -1,0 +1,65 @@
+python -m blacs
+zprocess warning: libzmq not built with libsodium. Encryption/decryption will be slow. If on Windows, use conda zeromq/pyzmq packages for fast crypto.
+2018-09-12 10:43:30,400 INFO BLACS: Python Version: 3.6.4 |Anaconda custom (64-bit)| (default, Jan 16 2018, 18:10:19)
+[GCC 7.2.0]
+2018-09-12 10:43:30,401 INFO BLACS: Platform: linux
+2018-09-12 10:43:30,401 INFO BLACS: PyZMQ Version: 16.0.3
+2018-09-12 10:43:30,401 INFO BLACS: ZMQ Version: 4.2.2
+2018-09-12 10:43:30,401 INFO BLACS: h5py Version: Summary of the h5py configuration
+---------------------------------
+
+h5py    2.8.0
+HDF5    1.10.2
+Python  3.6.4 |Anaconda custom (64-bit)| (default, Jan 16 2018, 18:10:19)
+[GCC 7.2.0]
+sys.platform    linux
+sys.maxsize     9223372036854775807
+numpy   1.14.5
+
+2018-09-12 10:43:30,401 INFO BLACS: Qt Enviroment: PyQt5
+2018-09-12 10:43:30,402 INFO BLACS: PySide/PyQt Version: 5.9.2
+2018-09-12 10:43:30,402 INFO BLACS: Qt Version: 5.9.4
+2018-09-12 10:43:30,402 INFO BLACS: qtutils Version: 2.1.0
+2018-09-12 10:43:30,402 INFO BLACS: zprocess Version: 2.4.3
+2018-09-12 10:43:30,402 INFO BLACS: labscript_utils Version: 2.7.2
+2018-09-12 10:43:30,403 INFO BLACS: BLACS Version: 2.3.1
+2018-09-12 10:43:30,468 INFO BLACS: About to load connection table: /home/lars/Dokumente/labscript/experiments/connectiontable.h5
+2018-09-12 10:43:30,472 INFO BLACS: connection table loaded
+2018-09-12 10:43:30,498 INFO BLACS: QApplication instantiated
+2018-09-12 10:43:30,498 INFO BLACS: Loading BLACS ui
+2018-09-12 10:43:30,578 INFO BLACS: BLACS ui loaded
+2018-09-12 10:43:30,579 INFO BLACS: finding connected devices in connection table
+2018-09-12 10:43:30,580 INFO BLACS: Loading front panel settings
+2018-09-12 10:43:30,592 INFO BLACS: restoring window data
+2018-09-12 10:43:30,602 INFO BLACS: Creating tab widgets
+2018-09-12 10:43:30,608 INFO BLACS: Instantiating devices
+2018-09-12 10:43:30,608 INFO BLACS: instantiating pulseblaster_0
+imported DummyPseudoclock ok!
+zprocess warning: libzmq not built with libsodium. Encryption/decryption will be slow. If on Windows, use conda zeromq/pyzmq packages for fast crypto.
+2018-09-12 10:43:30,768 INFO BLACS: instantiating plugins
+2018-09-12 10:43:30,769 INFO BLACS: creating plugin tabs
+2018-09-12 10:43:30,769 INFO BLACS: reordering tabs
+2018-09-12 10:43:30,771 INFO BLACS: starting analysis submission thread
+2018-09-12 10:43:30,783 INFO BLACS: starting queue manager thread
+2018-09-12 10:43:30,791 INFO BLACS.queue_manager.thread: starting
+2018-09-12 10:43:30,792 INFO BLACS: setting up notification system
+2018-09-12 10:43:30,888 INFO BLACS: setting up preferences system
+2018-09-12 10:43:30,905 INFO BLACS: showing UI
+2018-09-12 10:43:30,905 INFO BLACS: BLACS instantiated
+2018-09-12 10:43:30,970 INFO BLACS.AnalysisSubmission.mainloop: Processed signal: check/retry
+2018-09-12 10:43:35,462 INFO BLACS.plugin.connection_table: recompile connection table called
+zprocess warning: libzmq not built with libsodium. Encryption/decryption will be slow. If on Windows, use conda zeromq/pyzmq packages for fast crypto.
+2018-09-12 10:43:38,174 INFO BLACS: destroy called
+2018-09-12 10:43:38,192 INFO BLACS: Destroying tabs
+2018-09-12 10:43:38,219 INFO BLACS.pulseblaster_0: close_tab called
+2018-09-12 10:43:38,234 INFO BLACS.pulseblaster_0.mainloop: Exiting
+2018-09-12 10:43:38,280 INFO BLACS: destroy called
+2018-09-12 10:43:38,294 INFO BLACS: finalise_quit called
+2018-09-12 10:43:38,295 INFO BLACS: quitting
+2018-09-12 10:43:38,382 INFO BLACS: relaunching BLACS after quit
+Traceback (most recent call last):
+  File "/home/lars/labscript_suite/blacs/__main__.py", line 18, in <module>
+    import logging, logging.handlers
+  File "/home/lars/anaconda3/lib/python3.6/logging/handlers.py", line 28, in <module>
+    import queue
+ImportError: bad magic number in 'queue': b'\x03\xf3\r\n'
