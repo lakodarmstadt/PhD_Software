@@ -43,6 +43,12 @@ class cavity:
         return I
 
 
+def optical_length(FSR, FSR_err=0):
+    opt_length = c / (2 * FSR)
+    opt_length_err = (c * FSR_err) / (2 * FSR**2)
+    return c / (2 * FSR), opt_length_err
+
+
 R_780 = 0.999908
 R_960 = 0.99985
 lambda_780 = 780 * nano
@@ -57,3 +63,5 @@ print(SLS_Cavity_780.linewidth_FWHM())
 print(SLS_Cavity_780.max_Transmission())
 print(SLS_Cavity_780.Internal_Intensity(10 * micro))
 print(SLS_Cavity_780.R1)
+
+print(optical_length(1496.923 * 1e6, 0.002 * 1e6))
