@@ -39,19 +39,28 @@ rydberg_state = (47, 2, 1.5)
 
 
 detuning_5P32 = (-113.2 * 1e6, - 83.8 * 1e6, - 20.4 * 1e6, 100.2 * 1e6)
+detuning_5S12 = (-1770.844 * 1e6, 1264.889 * 1e6)
 detuning_to_5P32F4 = 100 * 1e6
 
-FSR = 1521  # in MHz
-example_resonance_frequency = 312365346  # in MHz; Example resonance frequency calculated from measurements June 18th 2018
-frequency_57D52 = (atom.getTransitionFrequency(5, 1, 1.5, 57, 2, 2.5) - 90 * 1e6) / 1e6  # in MHz
-frequency_56D52 = (atom.getTransitionFrequency(5, 1, 1.5, 56, 2, 2.5) - 90 * 1e6) / 1e6  # in MHz
-frequency_58D52 = (atom.getTransitionFrequency(5, 1, 1.5, 58, 2, 2.5) - 90 * 1e6) / 1e6  # in MHz
+FSR = 1496.923  # in MHz
+example_resonance_frequency = 312365397  # in MHz; Example resonance frequency calculated from measurements June 18th 2018; corrected 07.11.2018 because of wrong frequency shift of cavity offsets (+-731Mhz bzw. +-788MHz); See Laserlevelschema_Rydberg_20181107.svg
+# example_resonance_frequency = (384230406.373 * 1e6 + detuning_5P32[3] - detuning_5S12[1] - 4.301 * 1e6) / 1e6  # in MHz; Example Resonance at 780nm; 4.301MHz below Master which is 80Mhz above F'=4; measured at October 25th 2018
 
-resonance_list = cavity_resonance_list(FSR, example_resonance_frequency, 15)
-print (resonance_list)
+
+frequency_57D52 = (atom.getTransitionFrequency(5, 1, 1.5, 57, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+frequency_56D52 = (atom.getTransitionFrequency(5, 1, 1.5, 56, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+frequency_58D52 = (atom.getTransitionFrequency(5, 1, 1.5, 58, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+
+frequency_40D52 = (atom.getTransitionFrequency(5, 1, 1.5, 40, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+frequency_70D52 = (atom.getTransitionFrequency(5, 1, 1.5, 71, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+
+
+# resonance_list = cavity_resonance_list(FSR, example_resonance_frequency, 15)
+# print (resonance_list)
 
 nearest_cavity_resonance(frequency_57D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
 nearest_cavity_resonance(frequency_56D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
 nearest_cavity_resonance(frequency_58D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
 
-print((atom.getTransitionFrequency(5, 1, 1.5, 57, 2, 2.5) - atom.getTransitionFrequency(5, 1, 1.5, 58, 2, 2.5)) / 1e6)
+nearest_cavity_resonance(frequency_40D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+nearest_cavity_resonance(frequency_70D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
