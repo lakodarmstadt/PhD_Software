@@ -16,19 +16,24 @@ def cavity_resonance_list(FSR, example_resonance_frequency, n):
     return resonance_list
 
 
-def nearest_cavity_resonance(frequency, FSR, example_resonance_frequency, unit=" Hz "):
+def nearest_cavity_resonance(frequency, FSR, example_resonance_frequency, unit=" Hz ", print_output=True):
     FSR_diff = (frequency - example_resonance_frequency) / FSR
     if abs(FSR_diff % 1) <= 0.55:
         resonance_1 = example_resonance_frequency + math.floor(FSR_diff) * FSR
         resonance_2 = example_resonance_frequency + math.ceil(FSR_diff) * FSR
-        print("There are two cavity resonances with similar distance to your frequency: " + str(resonance_1) + unit + "and " + str(resonance_2) + unit)
+        # print("There are two cavity resonances with similar distance to your frequency: " + str(resonance_1) + unit + "and " + str(resonance_2) + unit)
         # print("The frequency offset is " + str(abs(frequency - resonance_1)) + unit + "and " + str(abs(frequency - resonance_2)) + unit)
-        print("The frequency offset is " + str(resonance_1 - frequency) + unit + "and " + str(resonance_2 - frequency) + unit)
+        # print("The frequency offset is " + str(resonance_1 - frequency) + unit + "and " + str(resonance_2 - frequency) + unit)
+        frequency_offset = [resonance_1 - frequency, resonance_2 - frequency]
     else:
         next_resonance = example_resonance_frequency + FSR * round(FSR_diff, 0)
-        print("The next cavity resonance is at " + str(next_resonance) + unit)
+        # print("The next cavity resonance is at " + str(next_resonance) + unit)
         # print("The frequency offset is " + str(abs(frequency - next_resonance)) + unit)
-        print("The frequency offset is " + str(next_resonance - frequency) + unit)
+        # print("The frequency offset is " + str(next_resonance - frequency) + unit)
+        frequency_offset = [next_resonance - frequency]
+    if print_output:
+        print("The frequency offset is " + ' and '.join([str(i) for i in frequency_offset]) + ' MHz')
+    return frequency_offset
 
 
 
@@ -48,19 +53,29 @@ example_resonance_frequency = 312365397  # in MHz; Example resonance frequency c
 
 
 frequency_57D52 = (atom.getTransitionFrequency(5, 1, 1.5, 57, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
-frequency_56D52 = (atom.getTransitionFrequency(5, 1, 1.5, 56, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
-frequency_58D52 = (atom.getTransitionFrequency(5, 1, 1.5, 58, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+# frequency_56D52 = (atom.getTransitionFrequency(5, 1, 1.5, 56, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+# frequency_58D52 = (atom.getTransitionFrequency(5, 1, 1.5, 58, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
 
-frequency_40D52 = (atom.getTransitionFrequency(5, 1, 1.5, 40, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
-frequency_70D52 = (atom.getTransitionFrequency(5, 1, 1.5, 71, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+# frequency_40D52 = (atom.getTransitionFrequency(5, 1, 1.5, 40, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
+# frequency_70D52 = (atom.getTransitionFrequency(5, 1, 1.5, 71, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6  # in MHz
 
 
 # resonance_list = cavity_resonance_list(FSR, example_resonance_frequency, 15)
 # print (resonance_list)
 
-nearest_cavity_resonance(frequency_57D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
-nearest_cavity_resonance(frequency_56D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
-nearest_cavity_resonance(frequency_58D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+# nearest_cavity_resonance(frequency_57D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+# nearest_cavity_resonance(frequency_56D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+# nearest_cavity_resonance(frequency_58D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
 
-nearest_cavity_resonance(frequency_40D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
-nearest_cavity_resonance(frequency_70D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+# nearest_cavity_resonance(frequency_40D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+# nearest_cavity_resonance(frequency_70D52 * 0.5, FSR, example_resonance_frequency, unit=" MHz ")
+
+offset_list = [[n, *nearest_cavity_resonance((atom.getTransitionFrequency(5, 1, 1.5, n, 2, 2.5) - detuning_5P32[3] - 406 * 1e6) / 1e6 * 0.5, FSR, example_resonance_frequency, unit=" MHz ", print_output=False)] for n in range(40, 81)]
+
+print(offset_list)
+
+offset_list_str = [[str(i) for i in item] for item in offset_list]
+
+with open('offset_list_v1.txt', 'w') as f:
+    for item in offset_list_str:
+        f.write(' '.join(item)+'\n')
